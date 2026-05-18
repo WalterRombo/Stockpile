@@ -440,6 +440,11 @@ ul { list-style: none; }
   padding: 0;
   animation: fadeIn .15s ease;
 }
+
+.modal-overlay[hidden] {
+  display: none !important;
+}
+
 @media (min-width: 600px) {
   .modal-overlay { align-items: center; padding: 24px; }
 }
