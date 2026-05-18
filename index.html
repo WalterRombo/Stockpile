@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#085041" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Stockpile" />
+  <title>Stockpile</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+
+  <!-- ── MOBILE HEADER ─────────────────────────────────────── -->
+  <header class="app-header" id="app-header">
+    <div class="header-inner">
+      <div class="logo">stock<span>pile</span></div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btn-search" aria-label="Search">
+          <i class="ti ti-search"></i>
+        </button>
+        <div class="avatar" aria-label="User">T</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── DESKTOP SIDEBAR ───────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">stock<span>pile</span></div>
+    <nav class="sidebar-nav" aria-label="Main">
+      <button class="sidebar-btn active" data-view="inventory">
+        <i class="ti ti-package"></i><span>Inventory</span>
+      </button>
+      <button class="sidebar-btn" data-view="recipes">
+        <i class="ti ti-book-2"></i><span>Recipes</span>
+      </button>
+      <!-- MEAL PLAN — module slot, uncomment when ready -->
+      <!-- <button class="sidebar-btn" data-view="mealplan">
+        <i class="ti ti-calendar-week"></i><span>Meal Plan</span>
+      </button> -->
+      <!-- SHOPPING — module slot, uncomment when ready -->
+      <!-- <button class="sidebar-btn" data-view="shopping">
+        <i class="ti ti-shopping-cart"></i><span>Shopping</span>
+      </button> -->
+    </nav>
+    <div class="sidebar-footer">
+      <button class="sidebar-btn" data-view="settings">
+        <i class="ti ti-settings"></i><span>Settings</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+  <main class="app-main" id="app-main">
+
+    <!-- Inventory view -->
+    <section class="view active" id="view-inventory" aria-label="Inventory"></section>
+
+    <!-- Recipes view -->
+    <section class="view" id="view-recipes" aria-label="Recipes"></section>
+
+    <!-- MEAL PLAN — uncomment and add js/mealplan.js when ready -->
+    <!-- <section class="view" id="view-mealplan" aria-label="Meal Plan"></section> -->
+
+    <!-- SHOPPING — uncomment and add js/shopping.js when ready -->
+    <!-- <section class="view" id="view-shopping" aria-label="Shopping"></section> -->
+
+    <!-- Settings view -->
+    <section class="view" id="view-settings" aria-label="Settings">
+      <div class="view-header"><h1 class="view-title">Settings</h1></div>
+      <div class="settings-body">
+        <div class="settings-group">
+          <h3 class="settings-group-title">Data</h3>
+          <button class="settings-row danger" id="btn-clear-data">
+            <i class="ti ti-trash"></i> Clear all data
+          </button>
+        </div>
+        <div class="settings-group">
+          <h3 class="settings-group-title">About</h3>
+          <p class="settings-about">Stockpile v0.1 — Kitchen inventory &amp; recipe manager.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── MOBILE BOTTOM NAV ─────────────────────────────────── -->
+  <nav class="bottom-nav" id="bottom-nav" aria-label="Main">
+    <button class="nav-btn active" data-view="inventory">
+      <i class="ti ti-package"></i><span>Inventory</span>
+    </button>
+    <button class="nav-btn" data-view="recipes">
+      <i class="ti ti-book-2"></i><span>Recipes</span>
+    </button>
+    <!-- MEAL PLAN slot -->
+    <!-- <button class="nav-btn" data-view="mealplan">
+      <i class="ti ti-calendar-week"></i><span>Meal Plan</span>
+    </button> -->
+    <!-- SHOPPING slot -->
+    <!-- <button class="nav-btn" data-view="shopping">
+      <i class="ti ti-shopping-cart"></i><span>Shopping</span>
+    </button> -->
+    <button class="nav-btn" data-view="settings">
+      <i class="ti ti-settings"></i><span>Settings</span>
+    </button>
+  </nav>
+
+  <!-- ── GLOBAL MODAL OVERLAY ──────────────────────────────── -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-card" id="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title"></h2>
+        <button class="icon-btn modal-close" id="modal-close" aria-label="Close modal">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ── TOAST ─────────────────────────────────────────────── -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- ── SCRIPTS ───────────────────────────────────────────── -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/recipes.js"></script>
+  <!-- Add module scripts here as they are built:
+  <script src="js/mealplan.js"></script>
+  <script src="js/shopping.js"></script>
+  -->
+</body>
+</html>
